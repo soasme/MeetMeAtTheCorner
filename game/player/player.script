@@ -22,15 +22,9 @@ end
 
 local function validtile(self, pos)
 	local t = tilemap.get_tile("/level_01/level#tilemap", "rocks", pos.x, pos.y)
-	return t == 0
-end
-
-local function move(self, pos)
-	if not validtile(self, data.world2tile(pos)) then return end
-	go.set_position(pos)
-	data.playerpos = pos
-	if self.snap then snap(self, pos)
-	else look_at(self, pos) end
+	if t == 0 then return true end
+	local t = tilemap.get_tile("/level_01/level#tilemap", "rocks", pos.x, pos.y)
+	return false
 end
 
 local function set_sprite(self, direction)
@@ -42,35 +36,42 @@ local function set_sprite(self, direction)
 	end
 end
 
+local function move(self, direction)
+	set_sprite(self, direction)
+	if not self.walking then
+		local target = go.get_position()
+		if direction == "left" then
+			target = target + vmath.vector3(-16, 0, 0)
+		elseif direction == "right" then
+			target = target + vmath.vector3(16, 0, 0)
+		elseif direction == "up" then
+			target = target + vmath.vector3(0, 16, 0)
+		elseif direction == "down" then
+			target = target + vmath.vector3(0, -16, 0)
+		end
+		if validtile(self, data.world2tile(target)) then
+			self.walking = true
+			go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target, go.EASING_LINEAR, 0.2, 0, function()
+				self.walking = false
+			end)
+		end
+	end
+end
+
 local function input_playing (self, action_id, action)
 	if action_id == hash("left") then
-		local pos = go.get_position() + vmath.vector3(-SPEED_MAX, 0, 0)
-		set_sprite(self, "left")
-		move(self, pos)
+		move(self, "left")
 	elseif action_id == hash("right") then
-		local pos = go.get_position() + vmath.vector3(SPEED_MAX, 0, 0)
-		set_sprite(self, "right")
-		move(self, pos)
+		move(self, "right")
 	elseif action_id == hash("up") then
-		local pos = go.get_position() + vmath.vector3(0, SPEED_MAX, 0)
-		set_sprite(self, "up")
-		move(self, pos)
+		move(self, "up")
 	elseif action_id == hash("down") then
-		local pos = go.get_position() + vmath.vector3(0, -SPEED_MAX, 0)
-		set_sprite(self, "down")
-		move(self, pos)
+		move(self, "down")
 	end
 
 	if action_id == hash("action") and action.pressed then
 		print("action")
 	end
-
---	if action_id == hash("debug") and action.pressed then level_clear(self) end
-
-	-- if action_id == hash("quit") and action.pressed then
-	-- 	msg.post("main:/sound", "stop_sound", {})
-	-- 	msg.post("main:/handler", "show_menu")
-	-- end
 end
 
 local function collision(self, message)
@@ -83,13 +84,21 @@ function init(self)
 	self.move = vmath.vector3(0,0,0)
 	self.snap = true
 	self.direction = "down"
+	self.walking = false
 	data.state = data.STATE_PLAYING
 	disable(self)
 end
 
+function update(self)
+	local pos = go.get_position()
+	data.playerpos = pos
+	if self.snap then snap(self, pos)
+	else look_at(self, pos) end
+end
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("position") then
-		move(self, message.pos)
+		go.set_position(message.pos)
 		enable(self)
 	elseif message_id == hash("dead") then
 		dead(self)

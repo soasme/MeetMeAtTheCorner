@@ -1020,6 +1020,13 @@ layers {
     v_flip: 0
   }
   cell {
+    x: 8
+    y: 7
+    tile: 454
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
     x: 3
     y: 8
     tile: 452
@@ -1053,9 +1060,23 @@ layers {
   z: 1.0
   is_visible: 0
   cell {
+    x: 9
+    y: 1
+    tile: 993
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
     x: 0
     y: 2
     tile: 961
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
+    x: 9
+    y: 7
+    tile: 478
     h_flip: 0
     v_flip: 0
   }
