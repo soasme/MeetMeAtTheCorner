@@ -1,0 +1,18 @@
+local function display_message(self, text)
+	msg.post(".", "enable")
+	local node = gui.get_node("message")
+	gui.set_text(node, text)
+	timer.delay(3, false, function()
+		msg.post(".", "disable")
+	end)
+end
+
+function init(self)
+	msg.post(".", "disable")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("display_message") then
+		display_message(self, message.text)
+	end
+end

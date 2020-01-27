@@ -70,7 +70,8 @@ local function input_playing (self, action_id, action)
 	end
 
 	if action_id == hash("action") and action.pressed then
-		print("action")
+		
+		msg.post("talk#talk", "display_message", { text="Hi, nice to meet you." })
 	end
 end
 
