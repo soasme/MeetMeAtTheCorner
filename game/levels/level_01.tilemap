@@ -412,14 +412,14 @@ layers {
   cell {
     x: 8
     y: 5
-    tile: 33
+    tile: 160
     h_flip: 0
     v_flip: 0
   }
   cell {
     x: 9
     y: 5
-    tile: 34
+    tile: 162
     h_flip: 0
     v_flip: 0
   }
@@ -482,14 +482,14 @@ layers {
   cell {
     x: 8
     y: 6
-    tile: 33
+    tile: 128
     h_flip: 0
     v_flip: 0
   }
   cell {
     x: 9
     y: 6
-    tile: 34
+    tile: 130
     h_flip: 0
     v_flip: 0
   }
@@ -552,14 +552,14 @@ layers {
   cell {
     x: 8
     y: 7
-    tile: 33
+    tile: 64
     h_flip: 0
     v_flip: 0
   }
   cell {
     x: 9
     y: 7
-    tile: 34
+    tile: 66
     h_flip: 0
     v_flip: 0
   }
@@ -716,6 +716,13 @@ layers {
     v_flip: 0
   }
   cell {
+    x: 1
+    y: 2
+    tile: 259
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
     x: 7
     y: 2
     tile: 256
@@ -758,6 +765,13 @@ layers {
     v_flip: 0
   }
   cell {
+    x: 0
+    y: 8
+    tile: 257
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
     x: 2
     y: 8
     tile: 258
@@ -767,7 +781,7 @@ layers {
 }
 layers {
   id: "road"
-  z: 1.0
+  z: 0.2
   is_visible: 1
   cell {
     x: 4
@@ -926,7 +940,7 @@ layers {
 }
 layers {
   id: "rocks"
-  z: 2.0
+  z: 0.3
   is_visible: 1
   cell {
     x: 5
@@ -943,6 +957,20 @@ layers {
     v_flip: 0
   }
   cell {
+    x: 0
+    y: 4
+    tile: 454
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
+    x: 8
+    y: 4
+    tile: 454
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
     x: 3
     y: 8
     tile: 452
@@ -950,9 +978,23 @@ layers {
     v_flip: 0
   }
   cell {
+    x: 1
+    y: 9
+    tile: 454
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
     x: 3
     y: 9
     tile: 452
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
+    x: 8
+    y: 9
+    tile: 454
     h_flip: 0
     v_flip: 0
   }
