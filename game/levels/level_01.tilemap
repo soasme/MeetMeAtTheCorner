@@ -929,6 +929,13 @@ layers {
     v_flip: 0
   }
   cell {
+    x: 9
+    y: 1
+    tile: 454
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
     x: 2
     y: 2
     tile: 131
