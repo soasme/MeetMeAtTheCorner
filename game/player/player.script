@@ -1,17 +1,82 @@
-function spawn(self)
+local data = require("main.data")
+
+local ACCEL = 0.5
+local SPEED_MAX = 1.2
+
+local function spawn(self)
 	msg.post(".", "enable")
+end
+
+local function dead(sef)
+	msg.post(".", "disable")
+end
+
+local function move(self, pos)
+	go.set_position(pos)
+	data.playerpos = pos
+
+	if self.snap then
+		msg.post("view#view", "snap_to", { position = pos})
+		self.snap = false
+	else
+		msg.post("view#view", "look_at", { position = pos})
+	end
+end
+
+local function input_playing (self, action_id, action)
+	if action_id == hash("left") then
+		local pos = go.get_position() + vmath.vector3(-SPEED_MAX, 0, 0)
+		move(self, pos)
+	elseif action_id == hash("right") then
+		local pos = go.get_position() + vmath.vector3(SPEED_MAX, 0, 0)
+		move(self, pos)
+	elseif action_id == hash("up") then
+		local pos = go.get_position() + vmath.vector3(0, SPEED_MAX, 0)
+		move(self, pos)
+	elseif action_id == hash("down") then
+		local pos = go.get_position() + vmath.vector3(0, -SPEED_MAX, 0)
+		move(self, pos)
+	end
+
+	if action_id == hash("action") and action.pressed then
+		print("action")
+	end
+
+--	if action_id == hash("debug") and action.pressed then level_clear(self) end
+
+	-- if action_id == hash("quit") and action.pressed then
+	-- 	msg.post("main:/sound", "stop_sound", {})
+	-- 	msg.post("main:/handler", "show_menu")
+	-- end
 end
 
 function init(self)
 	msg.post(".", "disable")
+	msg.post(".", "acquire_input_focus")
+	self.move = vmath.vector3(0,0,0)
+	self.snap = true
+	data.state = data.STATE_PLAYING
+	spawn(self)
 end
 
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Remove this function if not needed
+	if message_id == hash("position") then
+		move(self, message.pos)
+	elseif message_id == hash("dead") then
+		dead(self)
+	elseif message_id == hash("contact_point_response") then
+		-- collision(self, message)
+	end
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here
-	-- Remove this function if not needed
+	if data.state == data.STATE_PLAYING then
+		input_playing (self, action_id, action)
+	-- elseif data.state == data.STATE_GETREADY then
+	-- 	input_getready(self, action_id, action)
+	-- elseif data.state == data.STATE_LEVELCLEAR then
+	-- 	input_levelclear(self, action_id, action)
+	-- elseif data.state == data.STATE_GAMEOVER then
+	-- 	input_gameover(self, action_id, action)
+	end
 end

@@ -14,7 +14,7 @@ M.PIXEL_SIZE = 4
 
 M.level = 1
 M.maxlevel = 1
-M.offset = vmath.vector3(1280/(M.PIXEL_SIZE * 2), 720/(M.PIXEL_SIZE * 2), 0)
+M.offset = vmath.vector3(160, 160, 0)
 M.scrollpos = vmath.vector3(0,0,0)
 M.playerpos = vmath.vector3(0,0,0)
 M.spawnpos = vmath.vector3(0,0,0)
