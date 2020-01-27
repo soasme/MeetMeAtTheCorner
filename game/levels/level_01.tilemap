@@ -1072,7 +1072,7 @@ layers {
 layers {
   id: "top"
   z: 1.0
-  is_visible: 0
+  is_visible: 1
   cell {
     x: 9
     y: 1

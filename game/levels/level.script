@@ -37,7 +37,6 @@ end
 
 function init(self)
 	parse(self)
-	
 end
 
 function final(self)
