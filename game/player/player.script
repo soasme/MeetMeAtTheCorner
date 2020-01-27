@@ -58,6 +58,24 @@ local function move(self, direction)
 	end
 end
 
+local function take_action(self)
+	local tilepos = data.world2tile(go.get_world_position())
+	local targetpos = tilepos
+	if self.direction == "up" then
+		targetpos = targetpos + vmath.vector3(0, 1, 0)
+	elseif self.direction == "down" then
+		targetpos = targetpos + vmath.vector3(0, -1, 0)
+	elseif self.direction == "left" then
+		targetpos = targetpos + vmath.vector3(-1, 0, 0)
+	elseif self.direction == "right" then
+		targetpos = targetpos + vmath.vector3(1, 0, 0)
+	end
+	local you = data.world2tile(go.get_world_position("you"))
+	if targetpos == you then
+		msg.post("talk#talk", "display_message", { text="Hi, nice to meet you." })
+	end
+end
+
 local function input_playing (self, action_id, action)
 	if action_id == hash("left") then
 		move(self, "left")
@@ -70,8 +88,7 @@ local function input_playing (self, action_id, action)
 	end
 
 	if action_id == hash("action") and action.pressed then
-		
-		msg.post("talk#talk", "display_message", { text="Hi, nice to meet you." })
+		take_action(self)
 	end
 end
 
