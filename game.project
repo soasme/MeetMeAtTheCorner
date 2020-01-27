@@ -13,6 +13,7 @@ width = 320
 height = 320
 fullscreen = 0
 high_dpi = 1
+display_profiles = /builtins/render/default.display_profilesc
 
 [script]
 shared_state = 1
