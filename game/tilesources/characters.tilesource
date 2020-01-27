@@ -1,0 +1,28 @@
+image: "/assets/images/characters.png"
+tile_width: 16
+tile_height: 16
+tile_margin: 0
+tile_spacing: 0
+collision: ""
+material_tag: "tile"
+collision_groups: "default"
+animations {
+  id: "player_back"
+  start_tile: 43
+  end_tile: 45
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "player_front"
+  start_tile: 7
+  end_tile: 9
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+extrude_borders: 2
+inner_padding: 0
