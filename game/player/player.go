@@ -17,7 +17,7 @@ embedded_components {
   id: "sprite"
   type: "sprite"
   data: "tile_set: \"/game/tilesources/characters.tilesource\"\n"
-  "default_animation: \"player_front\"\n"
+  "default_animation: \"player_down\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""

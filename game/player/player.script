@@ -23,18 +23,29 @@ local function move(self, pos)
 	end
 end
 
+local function set_sprite(self, direction)
+	if self.direction ~= direction then
+		self.direction = direction
+		msg.post("#sprite", "play_animation", { id=hash("player_" .. direction) })
+	end
+end
+
 local function input_playing (self, action_id, action)
 	if action_id == hash("left") then
 		local pos = go.get_position() + vmath.vector3(-SPEED_MAX, 0, 0)
+		set_sprite(self, "left")
 		move(self, pos)
 	elseif action_id == hash("right") then
 		local pos = go.get_position() + vmath.vector3(SPEED_MAX, 0, 0)
+		set_sprite(self, "right")
 		move(self, pos)
 	elseif action_id == hash("up") then
 		local pos = go.get_position() + vmath.vector3(0, SPEED_MAX, 0)
+		set_sprite(self, "up")
 		move(self, pos)
 	elseif action_id == hash("down") then
 		local pos = go.get_position() + vmath.vector3(0, -SPEED_MAX, 0)
+		set_sprite(self, "down")
 		move(self, pos)
 	end
 
@@ -55,6 +66,7 @@ function init(self)
 	msg.post(".", "acquire_input_focus")
 	self.move = vmath.vector3(0,0,0)
 	self.snap = true
+	self.direction = "down"
 	data.state = data.STATE_PLAYING
 	spawn(self)
 end

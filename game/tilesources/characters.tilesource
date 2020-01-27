@@ -7,18 +7,36 @@ collision: ""
 material_tag: "tile"
 collision_groups: "default"
 animations {
-  id: "player_back"
-  start_tile: 43
-  end_tile: 45
+  id: "player_down"
+  start_tile: 7
+  end_tile: 9
   playback: PLAYBACK_LOOP_PINGPONG
   fps: 4
   flip_horizontal: 0
   flip_vertical: 0
 }
 animations {
-  id: "player_front"
-  start_tile: 7
-  end_tile: 9
+  id: "player_left"
+  start_tile: 19
+  end_tile: 21
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "player_right"
+  start_tile: 31
+  end_tile: 33
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 4
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "player_up"
+  start_tile: 43
+  end_tile: 45
   playback: PLAYBACK_LOOP_PINGPONG
   fps: 4
   flip_horizontal: 0
