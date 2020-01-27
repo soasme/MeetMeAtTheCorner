@@ -6,7 +6,7 @@ tile_spacing: 0
 collision: ""
 material_tag: "tile"
 collision_groups: "ground"
-collision_groups: "water"
+collision_groups: "rocks"
 animations {
   id: "box"
   start_tile: 479

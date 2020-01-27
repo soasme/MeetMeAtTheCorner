@@ -3,11 +3,11 @@ local data = require("main.data")
 local ACCEL = 0.5
 local SPEED_MAX = 1.2
 
-local function spawn(self)
+local function enable(self)
 	msg.post(".", "enable")
 end
 
-local function dead(sef)
+local function disable(sef)
 	msg.post(".", "disable")
 end
 
@@ -20,7 +20,13 @@ local function snap(self, pos)
 	self.snap = false
 end
 
+local function validtile(self, pos)
+	local t = tilemap.get_tile("/level_01/level#tilemap", "rocks", pos.x, pos.y)
+	return t == 0
+end
+
 local function move(self, pos)
+	if not validtile(self, data.world2tile(pos)) then return end
 	go.set_position(pos)
 	data.playerpos = pos
 	if self.snap then snap(self, pos)
@@ -67,6 +73,10 @@ local function input_playing (self, action_id, action)
 	-- end
 end
 
+local function collision(self, message)
+	print(message)
+end
+
 function init(self)
 	msg.post(".", "disable")
 	msg.post(".", "acquire_input_focus")
@@ -74,16 +84,17 @@ function init(self)
 	self.snap = true
 	self.direction = "down"
 	data.state = data.STATE_PLAYING
-	spawn(self)
+	disable(self)
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("position") then
 		move(self, message.pos)
+		enable(self)
 	elseif message_id == hash("dead") then
 		dead(self)
 	elseif message_id == hash("contact_point_response") then
-		-- collision(self, message)
+		collision(self, message)
 	end
 end
 

@@ -1,0 +1,50 @@
+local data = require("main.data")
+
+local function spawn_player(self, x, y)
+	local pos = data.tile2world(vmath.vector3(x, y, 1))
+	msg.post("common/player", "position", {pos = pos})
+end
+
+local function parse(self)
+	sx, sy, w, h = tilemap.get_bounds("#tilemap")
+
+	for y = sy, h+sy-1 do
+		for x = sx, w+sx-1 do
+			t = tilemap.get_tile("#tilemap", "top", x, y)
+			if t == 962 then -- constant: player spawn
+				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
+				spawn_player(self, x, y)
+			end
+		end
+	end
+end
+
+function init(self)
+	parse(self)
+	
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Remove this function if not needed
+end
