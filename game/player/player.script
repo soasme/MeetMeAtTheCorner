@@ -11,22 +11,28 @@ local function dead(sef)
 	msg.post(".", "disable")
 end
 
+local function look_at(self, pos)
+	msg.post("view#view", "look_at", { position = pos})
+end
+
+local function snap(self, pos)
+	msg.post("view#view", "snap_to", { position = pos})
+	self.snap = false
+end
+
 local function move(self, pos)
 	go.set_position(pos)
 	data.playerpos = pos
-
-	if self.snap then
-		msg.post("view#view", "snap_to", { position = pos})
-		self.snap = false
-	else
-		msg.post("view#view", "look_at", { position = pos})
-	end
+	if self.snap then snap(self, pos)
+	else look_at(self, pos) end
 end
 
 local function set_sprite(self, direction)
 	if self.direction ~= direction then
 		self.direction = direction
-		msg.post("#sprite", "play_animation", { id=hash("player_" .. direction) })
+		msg.post("#sprite", "play_animation", {
+			id=hash("player_" .. direction)
+		})
 	end
 end
 
