@@ -69,8 +69,8 @@ local function take_action(self)
 	if not self.action then return end
 	if self.action.cmd == "open_box" then
 		msg.post(self.action.other_id, "open_box")
+		self.item = true
 	elseif self.action.cmd == "check_item" then
-		-- msg.post(self.action.other_id, "open_discussion")
 		if not self.item then
 			print("level not complete")
 		else
