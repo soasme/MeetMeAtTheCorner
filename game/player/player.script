@@ -24,14 +24,14 @@ local function take_action(self)
 	if self.action.cmd == "open_box" then
 		if not self.item then
 			msg.post(self.action.other_id, "open_box")
-			msg.post("view#talk", "display_message", {text="Got a lollipop."})
+			msg.post("view#talk", "display_message", {text="Nina: Got a lollipop."})
 			self.item = true
 		end
 	elseif self.action.cmd == "check_item" then
 		if not self.item then
-			msg.post("view#talk", "display_message", {text="It's a nice day."})
+			msg.post("view#talk", "display_message", {text="Toby: Can you find my secret?"})
 		else
-			msg.post("view#talk", "display_message", {text="I love lollipop....\nAnd, I love you."})
+			msg.post("view#talk", "display_message", {text="Toby: My secret is ...\nI love you."})
 		end
 	end
 end

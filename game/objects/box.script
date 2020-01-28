@@ -1,40 +1,25 @@
 -- Box messages.
 -- "open_box", {}: open the box shortly, and close it 2 seconds later.
 
-local function keep_box(self)
+local function close_box(self)
 	self.open = false
-	msg.post("#sprite_close", "disable")
 	msg.post("#sprite_open", "disable")
 	msg.post("#sprite", "enable")
 end
 
 local function open_box(self)
 	self.open = true
-	msg.post("#sprite_close", "disable")
 	msg.post("#sprite_open", "enable")
 	msg.post("#sprite", "disable")
 end
 
-local function close_box(self)
-	self.open = false
-	msg.post("#sprite_close", "enable")
-	msg.post("#sprite_open", "disable")
-	msg.post("#sprite", "disable")
-end
-
-local function autoclose_box(self, delay)
-	timer.delay(delay, false, function() close_box(self) end)
-end
 
 function init(self)
-	keep_box(self)
-	open_box(self)
-	autoclose_box(self, 2)
+	close_box(self)
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("open_box") then
 		open_box(self)
-		autoclose_box(self, 2)
 	end
 end

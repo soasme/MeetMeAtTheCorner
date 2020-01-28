@@ -17,17 +17,8 @@ animations {
   flip_vertical: 0
 }
 animations {
-  id: "box_close"
-  start_tile: 479
-  end_tile: 480
-  playback: PLAYBACK_ONCE_BACKWARD
-  fps: 2
-  flip_horizontal: 0
-  flip_vertical: 0
-}
-animations {
   id: "box_open"
-  start_tile: 479
+  start_tile: 480
   end_tile: 480
   playback: PLAYBACK_ONCE_FORWARD
   fps: 2
