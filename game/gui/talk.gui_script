@@ -1,11 +1,12 @@
 local data = require("main.data")
 
 local function show_more(self)
-	print(#self.pages)
 	if #self.pages == 0 then
-		data.state = data.STATE_PLAYING
-		gui.set_text(gui.get_node("text"), "")
-		msg.post(".", "disable")
+		timer.delay(0.2, false, function()
+			gui.set_text(gui.get_node("text"), "")
+			data.state = data.STATE_PLAYING
+			msg.post(".", "disable")
+		end)
 	else
 		local text = self.pages[#self.pages]
 		table.remove(self.pages, #self.pages)
