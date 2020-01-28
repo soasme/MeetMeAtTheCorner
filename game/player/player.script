@@ -11,52 +11,6 @@ local function disable(sef)
 	msg.post(".", "disable")
 end
 
-local function look_at(self, pos)
-	msg.post("view#view", "look_at", { position = pos})
-end
-
-local function snap(self, pos)
-	msg.post("view#view", "snap_to", { position = pos})
-	self.snap = false
-end
-
-local function validtile(self, pos)
-	local t = tilemap.get_tile("/level#tilemap", "rocks", pos.x, pos.y)
-	if t == 0 then return true end	
-	return false
-end
-
-local function set_sprite(self, direction)
-	if self.direction ~= direction then
-		self.direction = direction
-		msg.post("#sprite", "play_animation", {
-			id=hash("player_" .. direction)
-		})
-	end
-end
-
-local function move(self, direction)
-	set_sprite(self, direction)
-	if not self.walking then
-		local target = go.get_position()
-		if direction == "left" then
-			target = target + vmath.vector3(-16, 0, 0)
-		elseif direction == "right" then
-			target = target + vmath.vector3(16, 0, 0)
-		elseif direction == "up" then
-			target = target + vmath.vector3(0, 16, 0)
-		elseif direction == "down" then
-			target = target + vmath.vector3(0, -16, 0)
-		end
-		if validtile(self, data.world2tile(target)) then
-			self.walking = true
-			go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target, go.EASING_LINEAR, 0.2, 0, function()
-				self.walking = false
-			end)
-		end
-	end
-end
-
 local function set_action(self, action)
 	self.action = action
 end
@@ -80,16 +34,6 @@ local function take_action(self)
 end
 
 local function input_playing (self, action_id, action)
-	if action_id == hash("left") then
-		move(self, "left")
-	elseif action_id == hash("right") then
-		move(self, "right")
-	elseif action_id == hash("up") then
-		move(self, "up")
-	elseif action_id == hash("down") then
-		move(self, "down")
-	end
-
 	if action_id == hash("action") and action.pressed then
 		take_action(self)
 	end
@@ -116,17 +60,8 @@ function init(self)
 	msg.post(".", "acquire_input_focus")
 	self.move = vmath.vector3(0,0,0)
 	self.snap = true
-	self.direction = "down"
-	self.walking = false
 	data.state = data.STATE_PLAYING
 	disable(self)
-end
-
-function update(self)
-	local pos = go.get_position()
-	data.playerpos = pos
-	if self.snap then snap(self, pos)
-	else look_at(self, pos) end
 end
 
 function on_message(self, message_id, message, sender)
