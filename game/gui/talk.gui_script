@@ -1,18 +1,37 @@
-local function display_message(self, text)
-	msg.post(".", "enable")
-	local node = gui.get_node("message")
-	gui.set_text(node, text)
-	timer.delay(3, false, function()
+local data = require("main.data")
+
+local function show_more(self)
+	print(#self.pages)
+	if #self.pages == 0 then
+		data.state = data.STATE_PLAYING
+		gui.set_text(gui.get_node("text"), "")
 		msg.post(".", "disable")
-	end)
+	else
+		local text = self.pages[#self.pages]
+		table.remove(self.pages, #self.pages)
+		gui.set_text(gui.get_node("text"), text)
+		msg.post(".", "enable")
+	end
 end
 
 function init(self)
+	self.pages = {}
 	msg.post(".", "disable")
+	msg.post(".", "acquire_input_focus")
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("display_message") then
-		display_message(self, message.text)
+		data.state = data.STATE_DIALOG
+		table.insert(self.pages, message.text)
+		show_more(self)
+	end
+end
+
+function on_input(self, action_id, action)
+	if data.state == data.STATE_DIALOG then
+		if action_id == hash("action") and action.pressed then
+			show_more(self)
+		end
 	end
 end

@@ -22,13 +22,16 @@ end
 local function take_action(self)
 	if not self.action then return end
 	if self.action.cmd == "open_box" then
-		msg.post(self.action.other_id, "open_box")
-		self.item = true
+		if not self.item then
+			msg.post(self.action.other_id, "open_box")
+			msg.post("view#talk", "display_message", {text="Got a lollipop."})
+			self.item = true
+		end
 	elseif self.action.cmd == "check_item" then
 		if not self.item then
-			print("level not complete")
+			msg.post("view#talk", "display_message", {text="It's a nice day."})
 		else
-			print("level complete")
+			msg.post("view#talk", "display_message", {text="I love lollipop....\nAnd, I love you."})
 		end
 	end
 end
