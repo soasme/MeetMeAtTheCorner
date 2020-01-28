@@ -13,11 +13,6 @@ local function spawn_you(self, x, y)
 	go.set_position(pos, "common/you")
 end
 
-local function spawn_box(self, x, y)
-	local pos = data.tile2world(vmath.vector3(x, y, 1))
-	factory.create("#boxfactory", pos)
-end
-
 local function parse(self)
 	sx, sy, w, h = tilemap.get_bounds("#tilemap")
 
@@ -30,9 +25,6 @@ local function parse(self)
 			elseif t == 994 then -- constant: you spawn
 				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
 				spawn_you(self, x, y)
-			elseif t == 479 then -- constant: spawn box
-				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
-				spawn_box(self, x, y)
 			end
 		end
 	end

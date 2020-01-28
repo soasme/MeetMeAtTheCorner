@@ -21,9 +21,9 @@ local function snap(self, pos)
 end
 
 local function validtile(self, pos)
-	local t = tilemap.get_tile("/level_01/level#tilemap", "rocks", pos.x, pos.y)
+	local t = tilemap.get_tile("/game/level#tilemap", "rocks", pos.x, pos.y)
 	if t == 0 then return true end
-	local t = tilemap.get_tile("/level_01/level#tilemap", "rocks", pos.x, pos.y)
+	local t = tilemap.get_tile("/game/level#tilemap", "rocks", pos.x, pos.y)
 	return false
 end
 
@@ -120,7 +120,7 @@ function on_message(self, message_id, message, sender)
 		enable(self)
 	elseif message_id == hash("dead") then
 		dead(self)
-	elseif message_id == hash("contact_point_response") then
+	elseif message_id == hash("trigger_response") then
 		collision(self, message)
 	end
 end

@@ -1,6 +1,6 @@
 name: "main"
 collection_instances {
-  id: "level_01"
+  id: "game"
   collection: "/game/levels/level_01.collection"
   position {
     x: 0.0
