@@ -22,8 +22,7 @@ end
 
 local function validtile(self, pos)
 	local t = tilemap.get_tile("/game/level#tilemap", "rocks", pos.x, pos.y)
-	if t == 0 then return true end
-	local t = tilemap.get_tile("/game/level#tilemap", "rocks", pos.x, pos.y)
+	if t == 0 then return true end	
 	return false
 end
 
@@ -70,6 +69,13 @@ local function take_action(self)
 	if not self.action then return end
 	if self.action.cmd == "open_box" then
 		msg.post(self.action.other_id, "open_box")
+	elseif self.action.cmd == "check_item" then
+		-- msg.post(self.action.other_id, "open_discussion")
+		if not self.item then
+			print("level not complete")
+		else
+			print("level complete")
+		end
 	end
 end
 
@@ -93,6 +99,12 @@ local function collision(self, message)
 	if message.other_group == hash("box") then
 		if message.enter then
 			set_action(self, { cmd="open_box", other_id=message.other_id})
+		else
+			cancel_action(self)
+		end
+	elseif message.other_group == hash("you") then
+		if message.enter then
+			set_action(self, {cmd="check_item", other_id=message.other_id})
 		else
 			cancel_action(self)
 		end
