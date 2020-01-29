@@ -29,9 +29,9 @@ local function take_action(self)
 		end
 	elseif self.action.cmd == "check_item" then
 		if not self.item then
-			msg.post("view#talk", "display_message", {text="Toby: Can you find my secret?"})
+			msg.post("view#talk", "display_message", {text="Toby: Can you find my secret?", complete=false})
 		else
-			msg.post("view#talk", "display_message", {text="Toby: My secret is ...\nI love you."})
+			msg.post("view#talk", "display_message", {text="Toby: My secret is ...\nI love you.",complete=true})
 		end
 	end
 end

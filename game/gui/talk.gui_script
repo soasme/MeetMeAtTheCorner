@@ -1,11 +1,12 @@
 local data = require("main.data")
 
-local function show_more(self)
+local function show_more(self, complete)
 	if #self.pages == 0 then
 		timer.delay(0.2, false, function()
 			gui.set_text(gui.get_node("text"), "")
 			data.state = data.STATE_PLAYING
 			msg.post("#talk", "disable")
+			if self.complete then msg.post("#complete", "enable") end
 		end)
 	else
 		local text = self.pages[#self.pages]
@@ -17,6 +18,7 @@ end
 
 function init(self)
 	self.pages = {}
+	self.complete = false
 	msg.post("#talk", "disable")
 	msg.post(".", "acquire_input_focus")
 end
@@ -24,6 +26,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("display_message") then
 		data.state = data.STATE_DIALOG
+		self.complete = message.complete
 		table.insert(self.pages, message.text)
 		show_more(self)
 	end
