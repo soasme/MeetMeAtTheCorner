@@ -1,5 +1,5 @@
 local function complete(self)
-	print("complete, jump back to initial scene.")
+	msg.post("main:/handler", "show_menu")
 end
 
 function init(self)
@@ -8,7 +8,7 @@ function init(self)
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("action") then
+	if action_id == hash("action") and action.pressed then
 		complete(self)
 	end
 end
