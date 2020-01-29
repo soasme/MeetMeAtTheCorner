@@ -5,19 +5,19 @@ local function show_more(self)
 		timer.delay(0.2, false, function()
 			gui.set_text(gui.get_node("text"), "")
 			data.state = data.STATE_PLAYING
-			msg.post(".", "disable")
+			msg.post("#talk", "disable")
 		end)
 	else
 		local text = self.pages[#self.pages]
 		table.remove(self.pages, #self.pages)
 		gui.set_text(gui.get_node("text"), text)
-		msg.post(".", "enable")
+		msg.post("#talk", "enable")
 	end
 end
 
 function init(self)
 	self.pages = {}
-	msg.post(".", "disable")
+	msg.post("#talk", "disable")
 	msg.post(".", "acquire_input_focus")
 end
 

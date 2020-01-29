@@ -3,7 +3,8 @@ local function complete(self)
 end
 
 function init(self)
-	msg.post(".", "acquire_input_focus")
+	msg.post("#complete", "acquire_input_focus")
+	msg.post("#complete", "disable")
 end
 
 function on_input(self, action_id, action)
