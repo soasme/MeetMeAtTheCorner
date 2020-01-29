@@ -96,7 +96,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Level Clear"
+  text: "GAME COMPLETE!"
   font: "system_font"
   id: "level_clear"
   xanchor: XANCHOR_NONE
@@ -158,7 +158,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Press SPACE to next level"
+  text: "Press SPACE"
   font: "system_font"
   id: "next"
   xanchor: XANCHOR_NONE
