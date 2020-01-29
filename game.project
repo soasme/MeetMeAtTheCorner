@@ -2,7 +2,7 @@
 title = SeeYouAtTheCorner
 
 [bootstrap]
-main_collection = /game/core/game.collectionc
+main_collection = /main/main.collectionc
 
 [input]
 game_binding = /input/game.input_bindingc

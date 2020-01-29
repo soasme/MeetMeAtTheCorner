@@ -71,14 +71,13 @@ end
 local function resume_message(self, message)
 	if message.meta == "levelclear" then
 		msg.post("view#levelclear", "enable")
+		data.state = data.STATE_LEVELCLEAR
 	end
 end
 
 function init(self)
 	msg.post(".", "disable")
 	msg.post(".", "acquire_input_focus")
-	self.move = vmath.vector3(0,0,0)
-	self.snap = true
 	data.state = data.STATE_PLAYING
 	disable(self)
 end
@@ -99,11 +98,5 @@ end
 function on_input(self, action_id, action)
 	if data.state == data.STATE_PLAYING then
 		input_playing (self, action_id, action)
-	-- elseif data.state == data.STATE_GETREADY then
-	-- 	input_getready(self, action_id, action)
-	-- elseif data.state == data.STATE_LEVELCLEAR then
-	-- 	input_levelclear(self, action_id, action)
-	-- elseif data.state == data.STATE_GAMEOVER then
-	-- 	input_gameover(self, action_id, action)
 	end
 end
