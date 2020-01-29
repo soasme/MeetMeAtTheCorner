@@ -40,7 +40,7 @@ local function take_action(self)
 			msg.post("view#talk", "display_message", {
 				text="Toby: My secret is ...\nI love you.",
 				other_id=go.get_id(),
-				other_meta="level_clear"
+				other_meta="levelclear"
 			})
 		end
 	end
@@ -69,8 +69,8 @@ local function collision(self, message)
 end
 
 local function resume_message(self, message)
-	if message.meta == "level_clear" then
-		msg.post("view#complete", "enable")
+	if message.meta == "levelclear" then
+		msg.post("view#levelclear", "enable")
 	end
 end
 
