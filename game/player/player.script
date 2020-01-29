@@ -24,14 +24,24 @@ local function take_action(self)
 	if self.action.cmd == "open_box" then
 		if not self.item then
 			msg.post(self.action.other_id, "open_box")
-			msg.post("view#talk", "display_message", {text="Nina: Got a lollipop."})
+			msg.post("view#talk", "display_message", {
+				text="Nina: Got a lollipop.",
+				other_id=go.get_id()
+			})
 			self.item = true
 		end
 	elseif self.action.cmd == "check_item" then
 		if not self.item then
-			msg.post("view#talk", "display_message", {text="Toby: Can you find my secret?", complete=false})
+			msg.post("view#talk", "display_message", {
+				text="Toby: Can you find my secret?",
+				other_id=go.get_id(),
+			})
 		else
-			msg.post("view#talk", "display_message", {text="Toby: My secret is ...\nI love you.",complete=true})
+			msg.post("view#talk", "display_message", {
+				text="Toby: My secret is ...\nI love you.",
+				other_id=go.get_id(),
+				other_meta="level_clear"
+			})
 		end
 	end
 end
@@ -58,6 +68,12 @@ local function collision(self, message)
 	end
 end
 
+local function resume_message(self, message)
+	if message.meta == "level_clear" then
+		msg.post("view#complete", "enable")
+	end
+end
+
 function init(self)
 	msg.post(".", "disable")
 	msg.post(".", "acquire_input_focus")
@@ -75,6 +91,8 @@ function on_message(self, message_id, message, sender)
 		dead(self)
 	elseif message_id == hash("trigger_response") then
 		collision(self, message)
+	elseif message_id == hash("display_message_complete") then
+		resume_message(self, message)
 	end
 end
 
