@@ -1,6 +1,9 @@
 images {
   image: "/assets/images/kenny/buttonLong_brown_pressed.png"
 }
+images {
+  image: "/assets/images/bg.png"
+}
 margin: 0
 extrude_borders: 2
 inner_padding: 0
