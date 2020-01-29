@@ -70,8 +70,10 @@ end
 
 local function resume_message(self, message)
 	if message.meta == "levelclear" then
-		msg.post("view#levelclear", "enable")
 		data.state = data.STATE_LEVELCLEAR
+		msg.post("view#levelclear", "enable")
+	else
+		data.state = data.STATE_PLAYING
 	end
 end
 

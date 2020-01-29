@@ -17,7 +17,6 @@ end
 
 local function close(self)
 	gui.set_text(gui.get_node("text"), "")
-	data.state = data.STATE_PLAYING
 	msg.post("#talk", "disable")
 	if self.other_id then
 		msg.post(self.other_id, "display_message_complete", { meta=self.other_meta })
