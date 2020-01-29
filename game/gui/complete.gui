@@ -1,4 +1,4 @@
-script: "/game/gui/levelclear.gui_script"
+script: "/game/gui/complete.gui_script"
 fonts {
   name: "system_font"
   font: "/builtins/fonts/system_font.font"
