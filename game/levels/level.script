@@ -32,4 +32,5 @@ end
 
 function init(self)
 	parse(self)
+	data.level = self.level
 end

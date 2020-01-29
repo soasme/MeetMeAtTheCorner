@@ -14,6 +14,7 @@ M.TILE_SIZE = 16
 M.PIXEL_SIZE = 4
 
 M.level = 1
+M.totallevels = 1
 M.maxlevel = 1
 M.offset = vmath.vector3(160, 160, 0)
 M.scrollpos = vmath.vector3(0,0,0)
