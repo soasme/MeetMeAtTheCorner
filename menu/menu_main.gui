@@ -100,8 +100,8 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "See YOU\n"
-  "At The Corner"
+  text: "MEET ME\n"
+  "AT THE CORNER"
   font: "system_font"
   id: "title"
   xanchor: XANCHOR_NONE
