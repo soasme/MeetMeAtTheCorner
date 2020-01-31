@@ -18,6 +18,12 @@ local function spawn_creature(self, x, y)
 	msg.post("common/creature", "spawn", { pos=pos} )
 end
 
+local function move_creature(self, pos, direction)
+	tilemap.set_tile("#tilemap", "top", pos.x, pos.y, 0)
+	local newpos = pos + direction
+	tilemap.set_tile("#tilemap", "top", newpos.x, newpos.y, 964)
+end
+
 local function parse(self)
 	sx, sy, w, h = tilemap.get_bounds("#tilemap")
 
@@ -42,4 +48,10 @@ function init(self)
 	parse(self)
 	tilemap.set_visible("#tilemap", "top", false)
 	data.level = self.level
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("move_creature") then
+		move_creature(self, message.pos, message.direction)
+	end
 end

@@ -20,6 +20,24 @@ M.offset = vmath.vector3(160, 160, 0)
 M.scrollpos = vmath.vector3(0,0,0)
 M.playerpos = vmath.vector3(0,0,0)
 M.spawnpos = vmath.vector3(0,0,0)
+M.up = vmath.vector3(0, 1, 0)
+M.down = vmath.vector3(0, -1, 0)
+M.left = vmath.vector3(-1, 0, 0)
+M.right = vmath.vector3(1, 0, 0)
+
+function M.direction2str(d)
+	if d == M.up then
+		return "up"
+	elseif d == M.down then
+		return "down"
+	elseif d == M.left then
+		return "left"
+	elseif d == M.right then
+		return "right"
+	else
+		return "up"
+	end
+end
 
 function M.world2tile(p)
 	return vmath.vector3(math.floor((p.x + M.TILE_SIZE) / M.TILE_SIZE), math.floor((p.y + M.TILE_SIZE) / M.TILE_SIZE), p.z)

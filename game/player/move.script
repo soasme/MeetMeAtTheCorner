@@ -3,6 +3,8 @@ local data = require("main.data")
 local ACCEL = 0.5
 local SPEED_MAX = 1.2
 
+go.property("direction", vmath.vector3(0, 1, 0))
+
 local function look_at(self, pos)
 	msg.post("view#view", "look_at", { position = pos})
 end
@@ -21,27 +23,16 @@ local function validtile(self, pos)
 end
 
 local function set_sprite(self, direction)
-	if self.direction ~= direction then
-		self.direction = direction
-		msg.post("#sprite", "play_animation", {
-			id=hash("player_" .. direction)
-		})
-	end
+	msg.post("#sprite", "play_animation", {
+		id=hash("player_" .. direction)
+	})
 end
 
 local function move(self, direction)
-	set_sprite(self, direction)
 	if not self.walking then
-		local target = go.get_position()
-		if direction == "left" then
-			target = target + vmath.vector3(-16, 0, 0)
-		elseif direction == "right" then
-			target = target + vmath.vector3(16, 0, 0)
-		elseif direction == "up" then
-			target = target + vmath.vector3(0, 16, 0)
-		elseif direction == "down" then
-			target = target + vmath.vector3(0, -16, 0)
-		end
+		go.set("#move", "direction", data[direction])
+		set_sprite(self, direction)
+		local target = go.get_position() + data.TILE_SIZE*data[direction]
 		if validtile(self, data.world2tile(target)) then
 			self.walking = true
 			go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, target, go.EASING_LINEAR, 0.2, 0, function()
@@ -65,7 +56,6 @@ end
 
 function init(self)
 	self.walking = false
-	self.direction = "down"
 	msg.post(".", "acquire_input_focus")
 end
 

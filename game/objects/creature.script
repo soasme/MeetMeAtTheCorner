@@ -1,29 +1,24 @@
-function init(self)
-	-- Add initialization code here
-	-- Remove this function if not needed
-end
+local data = require("main.data")
 
-function final(self)
-	-- Add finalization code here
-	-- Remove this function if not needed
+local function move(self, direction)
+	if not self.is_moving then
+		self.is_moving = true
+		local origpos = go.get_position()
+		local pos = go.get_position() + data.TILE_SIZE*direction
+		go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, pos, go.EASING_INQUAD, 0.2, 0, function()
+			self.is_moving = false
+		end)
+		sprite.play_flipbook("#sprite", "creature_" .. data.direction2str(direction))
+		msg.post("/level", "move_creature", { pos=data.world2tile(origpos), direction=direction })
+	end
 end
 
 function update(self, dt)
-	-- Add update code here
-	-- Remove this function if not needed
+	self.is_moving = false
 end
 
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Remove this function if not needed
-end
-
-function on_input(self, action_id, action)
-	-- Add input-handling code here
-	-- Remove this function if not needed
-end
-
-function on_reload(self)
-	-- Add reload-handling code here
-	-- Remove this function if not needed
+	if message_id == hash("move") then
+		move(self, message.direction)
+	end
 end

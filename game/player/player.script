@@ -43,6 +43,10 @@ local function take_action(self)
 				other_meta="levelclear"
 			})
 		end
+	elseif self.action.cmd == "move_creature" then
+		msg.post(self.action.other_id, "move", {
+			direction=go.get("#move", "direction")
+		})
 	end
 end
 
@@ -65,6 +69,14 @@ local function collision(self, message)
 		else
 			cancel_action(self)
 		end
+	elseif message.other_group == hash("creature") then
+		if message.enter then
+			set_action(self, {cmd="move_creature", other_id=message.other_id})
+		else
+			cancel_action(self)
+		end
+	else
+		print("unknown collision object: " .. message.other_group)
 	end
 end
 
