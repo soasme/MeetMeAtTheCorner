@@ -60,6 +60,7 @@ embedded_components {
   "mask: \"you\"\n"
   "mask: \"rocks\"\n"
   "mask: \"box\"\n"
+  "mask: \"creature\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
