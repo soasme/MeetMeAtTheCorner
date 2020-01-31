@@ -5,7 +5,7 @@ tile_margin: 0
 tile_spacing: 0
 collision: ""
 material_tag: "tile"
-collision_groups: "default"
+collision_groups: "creature"
 animations {
   id: "creature_down"
   start_tile: 49
