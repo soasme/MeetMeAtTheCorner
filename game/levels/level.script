@@ -13,6 +13,11 @@ local function spawn_you(self, x, y)
 	go.set_position(pos, "common/you")
 end
 
+local function spawn_creature(self, x, y)
+	local pos = data.tile2world(vmath.vector3(x, y, 1))
+	msg.post("common/creature", "spawn", { pos=pos} )
+end
+
 local function parse(self)
 	sx, sy, w, h = tilemap.get_bounds("#tilemap")
 
@@ -25,6 +30,9 @@ local function parse(self)
 			elseif t == 994 then -- constant: you spawn
 				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
 				spawn_you(self, x, y)
+			elseif t == 967 then -- constant: creature spawn
+				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
+				spawn_creature(self, x, y)
 			end
 		end
 	end
