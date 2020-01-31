@@ -15,7 +15,6 @@ end
 
 local function spawn_creature(self, x, y)
 	local pos = data.tile2world(vmath.vector3(x, y, 1))
-	print(pos)
 	msg.post("common/creature", "spawn", { pos=pos} )
 end
 
@@ -29,10 +28,8 @@ local function parse(self)
 				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
 				spawn_player(self, x, y)
 			elseif t == 994 then -- constant: you spawn
-				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
 				spawn_you(self, x, y)
 			elseif t == 964 then -- constant: creature spawn
-				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
 				spawn_creature(self, x, y)
 			else
 				print(t)
@@ -43,5 +40,6 @@ end
 
 function init(self)
 	parse(self)
+	tilemap.set_visible("#tilemap", "top", false)
 	data.level = self.level
 end

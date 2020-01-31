@@ -14,8 +14,10 @@ end
 
 local function validtile(self, pos)
 	local t = tilemap.get_tile("/level#tilemap", "rocks", pos.x, pos.y)
-	if t == 0 then return true end	
-	return false
+	if t ~= 0 then return false end
+	local t = tilemap.get_tile("/level#tilemap", "top", pos.x, pos.y)
+	if t ~= 0 then return false end
+	return true
 end
 
 local function set_sprite(self, direction)
