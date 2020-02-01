@@ -3,21 +3,32 @@ local data = require ("main.data")
 function init(self)
 	self.loaded = 0
 	msg.post(".", "acquire_input_focus")
-	loadlevel(self)
+	loadlevel(self, 1)
+	print(go.get_id())
 end
 
-function loadlevel (self)
+function loadlevel (self, level)
+	data.level = level
 	if self.loaded > 0 then
 		msg.post (string.format("loader#level%d", self.loaded), "unload")
 	end
 	msg.post (string.format("loader#level%d", data.level), "load")
-	self.loaded = data.level
+	self.loaded = level
+end
+
+function reload(self)
+	msg.post (string.format("loader#level%d", data.level), "load")
 end
 
 function on_message(self, message_id, message,sender)
-	if(message_id == hash("new_level"))then
+	if message_id == hash("new_level") then
 		loadlevel(self, message.level)
-	elseif message_id == hash("proxy_loaded")then
+	elseif message_id == hash("reload_level") then
+		msg.post (string.format("loader#level%d", data.level), "unload")
+		timer.delay(0.5, false, function() -- TODO: maybe move it to somewhere?
+			msg.post (string.format("loader#level%d", data.level), "load")
+		end)
+	elseif message_id == hash("proxy_loaded") then
 		msg.post(sender, "enable")	
 	elseif message_id == hash("debug") then
 		print(sender)
