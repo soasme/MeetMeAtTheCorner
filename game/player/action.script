@@ -21,7 +21,6 @@ local function on_action(self, action_id, action)
 				other_id=go.get_id(),
 				direction=go.get("#move", "direction"),
 			})
-			print(message.other_id, "action")
 		end
 	end
 end

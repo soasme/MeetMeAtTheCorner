@@ -8,11 +8,14 @@ local function close_box(self)
 end
 
 local function open_box(self, message)
+	if not self.open then
+		local pos = go.get_world_position() + vmath.vector3(0, 0, 0.01)
+		factory.create("#coinfactory", pos)
+	end
 	self.open = true
 	msg.post("#sprite_open", "enable")
 	msg.post("#sprite_close", "disable")
 	if message then msg.post(message.other_id, "box_opened") end
-	factory.create("#coinfactory")
 end
 
 

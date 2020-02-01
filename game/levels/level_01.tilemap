@@ -1034,13 +1034,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: 9
-    y: 7
-    tile: 454
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: 3
     y: 8
     tile: 452
@@ -1064,7 +1057,7 @@ layers {
 }
 layers {
   id: "top"
-  z: 1.0
+  z: 0.4
   is_visible: 1
   cell {
     x: 9
@@ -1084,6 +1077,13 @@ layers {
     x: 3
     y: 7
     tile: 963
+    h_flip: 0
+    v_flip: 0
+  }
+  cell {
+    x: 9
+    y: 7
+    tile: 478
     h_flip: 0
     v_flip: 0
   }

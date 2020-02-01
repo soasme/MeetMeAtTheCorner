@@ -4,17 +4,22 @@ local data = require("main.data")
 local level_data = require "game.levels.data"
 
 local function spawn_player(self, x, y)
-	local pos = data.tile2world(vmath.vector3(x, y, 1))
+	local pos = data.tile2world(vmath.vector3(x, y, 0.5))
 	msg.post("common/player", "position", {pos = pos})
 end
 
 local function spawn_you(self, x, y)
-	local pos = data.tile2world(vmath.vector3(x, y, 1))
+	local pos = data.tile2world(vmath.vector3(x, y, 0.5))
 	go.set_position(pos, "common/you")
 end
 
+local function spawn_box(self, x, y)
+	local pos = data.tile2world(vmath.vector3(x, y, 0.5))
+	factory.create("common/box#factory", pos)
+end
+
 local function spawn_creature(self, x, y)
-	local pos = data.tile2world(vmath.vector3(x, y, 1))
+	local pos = data.tile2world(vmath.vector3(x, y, 0.5))
 	msg.post("common/creature", "spawn", { pos=pos} )
 end
 
@@ -37,6 +42,8 @@ local function parse(self)
 				spawn_you(self, x, y)
 			elseif t == 964 then -- constant: creature spawn
 				spawn_creature(self, x, y)
+			elseif t == 479 then -- constant: box
+				spawn_box(self, x, y)
 			else
 				print(t)
 			end
