@@ -1,3 +1,5 @@
+local data = require("main.data")
+
 local function on_zero_coin(self, message)
 	msg.post("view#talk", "display_message", {
 		text="Toby: Can you find my secret?",
@@ -21,8 +23,23 @@ local function on_action(self, message)
 	end
 end
 
+local function on_display_message_complete(self, message)
+	if message.meta == "levelclear" then
+		data.state = data.STATE_LEVELCLEAR
+		if data.level == data.totallevels then
+			msg.post("view#complete", "enable")
+		else
+			msg.post("view#levelclear", "enable")
+		end
+	else
+		data.state = data.STATE_PLAYING
+	end
+end
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("action") then
 		on_action(self, message)
+	elseif message_id == hash("display_message_complete") then
+		on_display_message_complete(self, message)
 	end
 end
