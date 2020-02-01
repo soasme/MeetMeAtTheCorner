@@ -9,8 +9,8 @@ game_binding = /input/game.input_bindingc
 use_accelerometer = 0
 
 [display]
-width = 320
-height = 320
+width = 640
+height = 480
 fullscreen = 0
 high_dpi = 1
 display_profiles = /builtins/render/default.display_profilesc
