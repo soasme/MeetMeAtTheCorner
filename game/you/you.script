@@ -1,0 +1,28 @@
+local function on_zero_coin(self, message)
+	msg.post("view#talk", "display_message", {
+		text="Toby: Can you find my secret?",
+		other_id=go.get_id(),
+	})
+end
+
+local function on_many_coins(self, message)
+	msg.post("view#talk", "display_message", {
+		text="Toby: My secret is ...\nHmm, I'll tell you next time.",
+		other_id=go.get_id(),
+		other_meta="levelclear"
+	})
+end
+
+local function on_action(self, message)
+	if go.get("player#action", "coins_count") == 0 then
+		on_zero_coin(self, message)
+	else
+		on_many_coins(self, message)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("action") then
+		on_action(self, message)
+	end
+end

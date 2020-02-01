@@ -1,5 +1,7 @@
 local data = require("main.data")
 
+go.property("coins_count", 0)
+
 local function next_tile(self)
 	return data.world2tile(go.get_position() + data.TILE_SIZE*go.get("#move", "direction"))
 end
@@ -16,11 +18,16 @@ local function on_action(self, action_id, action)
 	for i,message in pairs(self.collisions) do
 		if data.world2tile(go.get_position(message.other_id)) == next_tile(self) then
 			msg.post(message.other_id, "action", {
-				other_id=go.get_id("."),
+				other_id=go.get_id(),
 				direction=go.get("#move", "direction"),
 			})
+			print(message.other_id, "action")
 		end
 	end
+end
+
+local function on_box_opened(self, message)
+	self.coins_count = self.coins_count + 1
 end
 
 function init(self)
@@ -32,6 +39,8 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") then
 		on_trigger(self, message)
+	elseif message_id == hash("box_opened") then
+		on_box_opened(self, message)
 	end	
 end
 

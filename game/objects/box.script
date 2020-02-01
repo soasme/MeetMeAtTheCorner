@@ -7,10 +7,12 @@ local function close_box(self)
 	msg.post("#sprite_close", "enable")
 end
 
-local function open_box(self)
+local function open_box(self, message)
 	self.open = true
 	msg.post("#sprite_open", "enable")
 	msg.post("#sprite_close", "disable")
+	if message then msg.post(message.other_id, "box_opened") end
+	factory.create("#coinfactory")
 end
 
 
@@ -20,6 +22,6 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("action") then
-		open_box(self)
+		open_box(self, message)
 	end
 end

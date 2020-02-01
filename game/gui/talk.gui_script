@@ -8,6 +8,7 @@ local function set_message(self, other_id, other_meta, text)
 end
 
 local function show(self)
+	self.origin_state = data.state
 	data.state = data.STATE_DIALOG
 	local text = self.pages[#self.pages]
 	table.remove(self.pages, #self.pages)
@@ -21,12 +22,18 @@ local function close(self)
 	if self.other_id then
 		msg.post(self.other_id, "display_message_complete", { meta=self.other_meta })
 	end
+	timer.delay(0.5, false, function() 
+		data.state =  self.origin_state
+	end)
 end
 
 local function more(self)
-	if #self.pages == 0 
-	then close(self)
-	else show(self) end
+	if #self.pages == 0 then
+		close(self)
+	else
+		show(self)
+	end
+	print("more", #self.pages, data.state)
 end
 
 function init(self)
