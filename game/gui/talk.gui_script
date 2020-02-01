@@ -33,7 +33,6 @@ local function more(self)
 	else
 		show(self)
 	end
-	print("more", #self.pages, data.state)
 end
 
 function init(self)

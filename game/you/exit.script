@@ -26,6 +26,7 @@ end
 local function on_display_message_complete(self, message)
 	if message.meta == "levelclear" then
 		data.state = data.STATE_LEVELCLEAR
+		
 		if data.level == data.totallevels then
 			msg.post("view#complete", "enable")
 		else

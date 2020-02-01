@@ -1,7 +1,5 @@
 local data = require "main.data"
 
-go.property("level", 1)
-
 local function spawn_player(self, x, y)
 	local pos = data.tile2world(vmath.vector3(x, y, 0.5))
 	msg.post("common/player", "position", {pos = pos})
@@ -43,8 +41,6 @@ local function parse(self)
 				spawn_creature(self, x, y)
 			elseif t == 479 then -- constant: box
 				spawn_box(self, x, y)
-			else
-				print(t)
 			end
 		end
 	end
@@ -53,7 +49,6 @@ end
 function init(self)
 	parse(self)
 	tilemap.set_visible("#tilemap", "top", false)
-	data.level = self.level
 end
 
 function on_message(self, message_id, message, sender)
