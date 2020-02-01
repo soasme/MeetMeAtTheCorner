@@ -1,6 +1,6 @@
 components {
   id: "script"
-  component: "/game/you/you.script"
+  component: "/game/you/exit.script"
   position {
     x: 0.0
     y: 0.0

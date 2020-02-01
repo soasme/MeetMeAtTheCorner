@@ -8,9 +8,9 @@ local function spawn_player(self, x, y)
 	msg.post("common/player", "position", {pos = pos})
 end
 
-local function spawn_you(self, x, y)
+local function spawn_exit(self, x, y)
 	local pos = data.tile2world(vmath.vector3(x, y, 0.5))
-	go.set_position(pos, "common/you")
+	go.set_position(pos, "common/exit")
 end
 
 local function spawn_box(self, x, y)
@@ -39,7 +39,7 @@ local function parse(self)
 				tilemap.set_tile("#tilemap", "top", x, y, 0) -- reset
 				spawn_player(self, x, y)
 			elseif t == 994 then -- constant: you spawn
-				spawn_you(self, x, y)
+				spawn_exit(self, x, y)
 			elseif t == 964 then -- constant: creature spawn
 				spawn_creature(self, x, y)
 			elseif t == 479 then -- constant: box

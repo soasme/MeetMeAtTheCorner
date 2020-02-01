@@ -1,15 +1,26 @@
 local data = require("main.data")
 
+local function validtile(self, pos)
+	local t = tilemap.get_tile("/level#tilemap", "rocks", pos.x, pos.y)
+	if t ~= 0 then return false end
+	local t = tilemap.get_tile("/level#tilemap", "top", pos.x, pos.y)
+	if t ~= 0 then return false end
+	return true
+end
+
+
 local function move(self, direction)
 	if not self.is_moving then
 		self.is_moving = true
 		local origpos = go.get_position()
 		local pos = go.get_position() + data.TILE_SIZE*direction
-		go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, pos, go.EASING_INQUAD, 0.2, 0, function()
-			self.is_moving = false
-		end)
 		sprite.play_flipbook("#sprite", "creature_" .. data.direction2str(direction))
-		msg.post("/level", "move_creature", { pos=data.world2tile(origpos), direction=direction })
+		if validtile(self, data.world2tile(pos)) then
+			go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, pos, go.EASING_INQUAD, 0.2, 0, function()
+				self.is_moving = false
+			end)
+			msg.post("/level", "move_creature", { pos=data.world2tile(origpos), direction=direction })
+		end
 	end
 end
 

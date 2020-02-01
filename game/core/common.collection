@@ -20,8 +20,8 @@ instances {
   }
 }
 instances {
-  id: "you"
-  prototype: "/game/you/you.go"
+  id: "exit"
+  prototype: "/game/you/exit.go"
   position {
     x: 0.0
     y: 0.0
