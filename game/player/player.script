@@ -16,10 +16,11 @@ local function set_action(self, action)
 end
 
 local function cancel_action(self)
-	self.action = nil
+	self.action = { cmd="" }
 end
 
 local function take_action(self)
+	pprint("take", self.action)
 	if not self.action then return end
 	if self.action.cmd == "open_box" then
 		if not self.item then
@@ -57,24 +58,20 @@ local function input_playing (self, action_id, action)
 end
 
 local function collision(self, message)
+	local nextpos = data.world2tile(go.get_position() + data.TILE_SIZE*go.get("#move", "direction"))
+	local otherpos = data.world2tile(go.get_position(message.other_id))
+	if nextpos ~= otherpos then return end
+	if message.enter == false then
+		cancel_action(self)
+		return
+	end
+
 	if message.other_group == hash("box") then
-		if message.enter then
-			set_action(self, { cmd="open_box", other_id=message.other_id})
-		else
-			cancel_action(self)
-		end
+		set_action(self, { cmd="open_box", other_id=message.other_id})
 	elseif message.other_group == hash("you") then
-		if message.enter then
-			set_action(self, {cmd="check_item", other_id=message.other_id})
-		else
-			cancel_action(self)
-		end
+		set_action(self, {cmd="check_item", other_id=message.other_id})
 	elseif message.other_group == hash("creature") then
-		if message.enter then
-			set_action(self, {cmd="move_creature", other_id=message.other_id})
-		else
-			cancel_action(self)
-		end
+		set_action(self, {cmd="move_creature", other_id=message.other_id})
 	else
 		print("unknown collision object: " .. message.other_group)
 	end
@@ -107,7 +104,7 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("dead") then
 		dead(self)
 	elseif message_id == hash("trigger_response") then
-		collision(self, message)
+		-- collision(self, message)
 	elseif message_id == hash("display_message_complete") then
 		resume_message(self, message)
 	end
@@ -115,6 +112,6 @@ end
 
 function on_input(self, action_id, action)
 	if data.state == data.STATE_PLAYING then
-		input_playing (self, action_id, action)
+		input_playing(self, action_id, action)
 	end
 end

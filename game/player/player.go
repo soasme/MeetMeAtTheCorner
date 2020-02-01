@@ -1,6 +1,6 @@
 components {
-  id: "player"
-  component: "/game/player/player.script"
+  id: "move"
+  component: "/game/player/move.script"
   position {
     x: 0.0
     y: 0.0
@@ -14,8 +14,8 @@ components {
   }
 }
 components {
-  id: "move"
-  component: "/game/player/move.script"
+  id: "action"
+  component: "/game/player/action.script"
   position {
     x: 0.0
     y: 0.0
@@ -52,7 +52,7 @@ embedded_components {
   id: "co"
   type: "collisionobject"
   data: "collision_shape: \"\"\n"
-  "type: COLLISION_OBJECT_TYPE_KINEMATIC\n"
+  "type: COLLISION_OBJECT_TYPE_TRIGGER\n"
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
@@ -63,9 +63,9 @@ embedded_components {
   "mask: \"creature\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
-  "    shape_type: TYPE_BOX\n"
+  "    shape_type: TYPE_SPHERE\n"
   "    position {\n"
-  "      x: -0.0\n"
+  "      x: 0.0\n"
   "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -76,11 +76,9 @@ embedded_components {
   "      w: 1.0\n"
   "    }\n"
   "    index: 0\n"
-  "    count: 3\n"
+  "    count: 1\n"
   "  }\n"
-  "  data: 8.0\n"
-  "  data: 8.0\n"
-  "  data: 8.0\n"
+  "  data: 8.5\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"

@@ -18,7 +18,7 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("move") then
+	if message_id == hash("action") then
 		move(self, message.direction)
 	end
 end
