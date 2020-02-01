@@ -4,13 +4,13 @@
 local function close_box(self)
 	self.open = false
 	msg.post("#sprite_open", "disable")
-	msg.post("#sprite", "enable")
+	msg.post("#sprite_close", "enable")
 end
 
 local function open_box(self)
 	self.open = true
 	msg.post("#sprite_open", "enable")
-	msg.post("#sprite", "disable")
+	msg.post("#sprite_close", "disable")
 end
 
 
@@ -19,7 +19,7 @@ function init(self)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("open_box") then
+	if message_id == hash("action") then
 		open_box(self)
 	end
 end

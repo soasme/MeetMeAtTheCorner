@@ -6,13 +6,9 @@ end
 
 local function on_trigger(self, message)
 	if message.enter then
-		table.insert(self.collisions, message)
+		self.collisions[hash_to_hex(message.other_id)] = message
 	else
-		for i,co in pairs(self.collisions) do
-			if co.other_id == message.id then
-				self.collisions[i] = nil
-			end
-		end
+		self.collisions[hash_to_hex(message.other_id)] = nil
 	end
 end
 

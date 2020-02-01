@@ -20,7 +20,6 @@ local function cancel_action(self)
 end
 
 local function take_action(self)
-	pprint("take", self.action)
 	if not self.action then return end
 	if self.action.cmd == "open_box" then
 		if not self.item then

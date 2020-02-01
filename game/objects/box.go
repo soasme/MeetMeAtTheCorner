@@ -81,7 +81,7 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "sprite"
+  id: "sprite_close"
   type: "sprite"
   data: "tile_set: \"/game/tilesources/tiles.tilesource\"\n"
   "default_animation: \"box\"\n"
