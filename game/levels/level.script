@@ -1,7 +1,6 @@
-go.property("level", 1)
+local data = require "main.data"
 
-local data = require("main.data")
-local level_data = require "game.levels.data"
+go.property("level", 1)
 
 local function spawn_player(self, x, y)
 	local pos = data.tile2world(vmath.vector3(x, y, 0.5))
