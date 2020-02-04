@@ -500,8 +500,8 @@ animations {
   id: "creature_left"
   start_tile: 61
   end_tile: 63
-  playback: PLAYBACK_ONCE_FORWARD
-  fps: 30
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 4
   flip_horizontal: 0
   flip_vertical: 0
 }
