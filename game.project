@@ -1,5 +1,6 @@
 [project]
 title = Meet Me At The Corner
+version = 0.3
 
 [bootstrap]
 main_collection = /main/main.collectionc
