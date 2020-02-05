@@ -1,7 +1,7 @@
 script: "/game/gui/complete.gui_script"
 fonts {
-  name: "system_font"
-  font: "/builtins/fonts/system_font.font"
+  name: "Pixel"
+  font: "/assets/fonts/Pixel.font"
 }
 background_color {
   x: 0.0
@@ -97,7 +97,7 @@ nodes {
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: "GAME COMPLETE!"
-  font: "system_font"
+  font: "Pixel"
   id: "level_clear"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -159,7 +159,7 @@ nodes {
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: "Press SPACE"
-  font: "system_font"
+  font: "Pixel"
   id: "next"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE

@@ -1,7 +1,7 @@
 script: "/menu/menu_main.gui_script"
 fonts {
-  name: "system_font"
-  font: "/builtins/fonts/system_font.font"
+  name: "Pixel"
+  font: "/assets/fonts/Pixel.font"
 }
 textures {
   name: "gui"
@@ -102,7 +102,7 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   text: "MEET ME\n"
   "AT THE CORNER"
-  font: "system_font"
+  font: "Pixel"
   id: "title"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -164,7 +164,7 @@ nodes {
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: "Press SPACE to START!"
-  font: "system_font"
+  font: "Pixel"
   id: "text"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
