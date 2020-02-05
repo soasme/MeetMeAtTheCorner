@@ -22,16 +22,18 @@ local function validtile(self, pos)
 	return true
 end
 
-local function set_sprite(self, direction)
-	msg.post("#sprite", "play_animation", {
-		id=hash("player_" .. direction)
-	})
+local function set_direction(self, direction)
+	if go.get("#move", "direction") ~= data[direction] then
+		go.set("#move", "direction", data[direction])
+		msg.post("#sprite", "play_animation", {
+			id=hash("player_" .. direction)
+		})
+	end
 end
 
 local function move(self, direction)
 	if not self.walking then
-		go.set("#move", "direction", data[direction])
-		set_sprite(self, direction)
+		set_direction(self, direction)
 		local target = go.get_position() + data.TILE_SIZE*data[direction]
 		if validtile(self, data.world2tile(target)) then
 			self.walking = true
